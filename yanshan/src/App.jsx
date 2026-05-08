@@ -338,7 +338,7 @@ function TeacherApp({onBack}){
     if(addModal){ const ns={id:genId(),name:form.name.trim(),avatar:form.avatar,color:form.color,points:0,achievedLevels:[]}; setStudents(p=>[...p,ns]); setAddModal(false); }
     else{ setStudents(p=>p.map(s=>s.id===editStudent.id?{...s,...form,name:form.name.trim()}:s)); setEditStudent(null); }
   }
-  function deleteStudent(id){ if(!confirm("确认删除？"))return; setStudents(p=>p.filter(s=>s.id!==id)); setHistory(p=>p.filter(h=>h.studentId!==id)); }
+  function deleteStudent(id){ if(!window.confirm("确认删除？"))return; setStudents(p=>p.filter(s=>s.id!==id)); setHistory(p=>p.filter(h=>h.studentId!==id)); }
 
   function applyPoints(student,pts,reason,note="",teacher=""){
     if(!pts) return;
@@ -364,7 +364,7 @@ function TeacherApp({onBack}){
   }
   function redeemItem(student,item){
     if((student.points||0)<item.cost){ alert("积分不足！"); return; }
-    if(!confirm(`确认为 ${student.name} 兑换「${item.name}」(${item.cost}分)？`)) return;
+    if(!window.confirm(`确认为 ${student.name} 兑换「${item.name}」(${item.cost}分)？`)) return;
     applyPoints(student,-item.cost,`兑换：${item.name}`);
     setRedeems(p=>[{id:genId(),studentId:student.id,studentName:student.name,itemName:item.name,cost:item.cost,time:new Date().toISOString()},...p]);
   }
